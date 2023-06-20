@@ -1,10 +1,13 @@
 
 $bambuserplayer_post_install = -> (installer) {
     puts "Updating CocoaPods config for bambuserplayer-sdk..."
+    
+    bundle_targets = ["gRPCCertificates-Cpp", "BambuserPlayerSDK_BambuserPlayerBundle"]
 
     installer.pods_project.targets.each do |target|
         # disable signing for this bundle 
-        if target.product_name == "gRPCCertificates-Cpp"
+        
+        if bundle_targets.include? target.product_name
           target.build_configurations.each do |config|
               config.build_settings['CODE_SIGNING_ALLOWED'] = 'NO'
           end

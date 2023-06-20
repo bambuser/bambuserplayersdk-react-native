@@ -16,12 +16,7 @@ Pod::Spec.new do |s|
 
   s.source_files = "ios/src/**/*.{h,m,mm,swift}"
 
-  s.dependency 'BambuserPlayerSDK'
-
-  s.dependency 'Firebase', '10.7.0'
-  s.dependency 'FirebaseAuth', '10.7.0'
-  s.dependency 'FirebaseFirestoreSwift', '10.7.0'
-  
+  s.dependency 'BambuserPlayerSDK', '1.1.0'
   s.dependency 'React-Core'
 
   s.pod_target_xcconfig = {
