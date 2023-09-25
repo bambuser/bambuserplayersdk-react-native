@@ -10,7 +10,15 @@ import {
 
 const LINKING_ERROR =
   `The package 'bambuserplayersdk-react-native' doesn't seem to be linked. Make sure: \n\n` +
-  Platform.select({ ios: "- You have run 'pod install'\n", default: '' }) +
+  Platform.select(
+    { 
+      ios: `
+      - You have updated Podfile: https://github.com/bambuser/bambuserplayersdk-react-native#ios
+      - You have run 'pod install'
+      `, 
+      default: '' 
+    }
+  ) +
   '- You rebuilt the app after installing the package\n' +
   '- You are not using Expo Go\n';
 
@@ -38,7 +46,12 @@ const ComponentName = 'BambuserPlayerView';
 const PlayerView =
   UIManager.getViewManagerConfig(ComponentName) != null
     ? requireNativeComponent<any>(ComponentName)
-    : AndroidPlaceholderView;
+    : () => {
+      if (Platform.OS === 'ios') {
+        throw new Error(LINKING_ERROR);
+      }
+      return AndroidPlaceholderView();
+    };
 
 class BambuserPlayerView extends React.Component<BambuserPlayerViewProps, BambuserPlayerViewState> {
 
@@ -69,6 +82,7 @@ const styles = StyleSheet.create({
   warning: {
     textAlign: 'center',
     padding: 20,
+    color: 'red',
   },
 });
 

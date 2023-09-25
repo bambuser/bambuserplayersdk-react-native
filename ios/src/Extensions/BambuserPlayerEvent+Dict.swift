@@ -4,8 +4,8 @@ extension BambuserPlayerEvent {
     
     func asDict() -> NSDictionary? {
         switch self {
-        case let .playerFailed(error: error):
-            return create(name: "playerFailed", data: ["error": error])
+        case let .playerFailed(error):
+            return create(name: "playerFailed", data: ["error": error.localizedDescription])
         case let .openTosOrPpUrl(url):
             return create(name: "openTosOrPpUrl", data: ["url": url.absoluteString])
         case let .openUrlFromChat(url):
